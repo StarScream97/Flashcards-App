@@ -1,6 +1,6 @@
 {
-  "name": "flashcard",
-  "short_name": "flashcard",
+  "name": "Flashcards",
+  "short_name": "Flashcards",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
