@@ -177,9 +177,6 @@ export default {
   },
   mounted() {
     const user = JSON.parse(localStorage.getItem("flashcards-user"));
-    if (!user) {
-      return this.$toasted.show("You must be logged in to like cards");
-    }
     this.user=user;
     this.fetchCategories();
     this.fetchCards();

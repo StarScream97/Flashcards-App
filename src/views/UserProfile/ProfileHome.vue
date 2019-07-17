@@ -18,7 +18,7 @@
                 <p class="  mb-2 uppercase">Learn</p>
                 <div class="lg:flex lg:flex-col">
                   <router-link class="mb-1 mr-4" to="/profile/learn"><i class="fab fa-leanpub mr-3"></i><strong>Learn</strong> </router-link>
-                  <router-link class="mb-1 mr-4" to="/profile/reports"><i class="fas fa-file mr-3"></i><strong>Reports</strong> </router-link>
+                  <router-link class="mb-1 mr-4" to="/profile/report"><i class="fas fa-file mr-3"></i><strong>Reports</strong> </router-link>
                 </div>
             </div>
         </div>

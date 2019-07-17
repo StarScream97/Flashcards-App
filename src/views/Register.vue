@@ -3,7 +3,7 @@
     <Navbar />
     <div class="min-h-screen px-2 py-4">
       <div class="w-full max-w-lg mx-auto">
-        <form @submit.prevent="register" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form @submit.prevent="register" class=" shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
             <input
@@ -84,7 +84,7 @@ export default {
               return this.$toasted.show("Passwords do not match!");
           }
         this.$store.dispatch('register',this.user);
-        this.$router.push('/cards');
+        this.$router.push('/');
       }
   }
 };

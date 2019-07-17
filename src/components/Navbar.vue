@@ -4,13 +4,14 @@
         <div class="header">
           <router-link to="/"><h5>Flashcards</h5></router-link>
         </div>
-        <div class="navbar-links flex">
-          <router-link to="/create" class="mr-3">Create a card</router-link>
-          <router-link to="/createcategory" class="mr-3">Create Category</router-link>
-          <router-link to="/search" class="mr-3">Search</router-link>
-          <router-link to="/practice" class="mr-3">Practice</router-link>
-          <router-link to="/profile" class="mr-3">Profile</router-link>
-          <router-link to="/login" v-if="!isLoggedIn" class="mr-3">Login</router-link>
+        <div class="navbar-links flex flex-wrap">
+          <router-link to="/create" class="mr-4">Create a card</router-link>
+          <router-link to="/createcategory" class="mr-4">Create Category</router-link>
+          <router-link to="/search" class="mr-4">Search</router-link>
+          <router-link to="/practice" class="mr-4">Practice</router-link>
+          <router-link to="/profile" v-if="isLoggedIn" class="mr-4">Profile</router-link>
+          <router-link to="/register" v-if="!isLoggedIn" class="mr-4">Register</router-link>
+          <router-link to="/login" v-if="!isLoggedIn" class="mr-4">Login</router-link>
         </div>
       </div>
   </div>
@@ -25,12 +26,27 @@ export default {
       isLoggedIn:false
     }
   },
+  watch:{
+    user:function(newVal,oldVal){
+      if(newVal!={}){
+        this.user=newVal;
+        return this.isLoggedIn=true;
+      }
+      this.isLoggedIn=false;
+  
+    }
+  },
   created(){
     const user=JSON.parse(localStorage.getItem('flashcards-user'));
-    if(user){
-      this.isLoggedIn=true;
-      this.user=user;
-    }
+    this.user=user;
+      // this.$store.watch(
+      //   (state)=>{
+      //       return this.$store.state.isLoggedIn 
+      //   },
+      //   (newValue, oldValue)=>{
+      //     console.log(newValue)
+      //     this.isLoggedIn=newValue;
+      //   })
   }
 }
 </script>

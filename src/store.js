@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     user:{},
     categories:[],
-    cards:[]
+    cards:[],
+    isLoggedIn:false
   },
   mutations: {
     register(state,user){
@@ -19,7 +20,9 @@ export default new Vuex.Store({
     },
     setCards(state,cards){
       state.cards=cards;
-
+    },
+    loggedIn(state,value){
+      state.isLoggedIn=value;
     }
   },
   actions: {

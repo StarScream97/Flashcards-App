@@ -29,6 +29,9 @@ select, option{
     color: white;
     background-color:#1d1d1d;
 }
+.home,#login{
+    min-height: 100vh;
+}
 input,select{
     background-color: #1d1d1d;
     color: white;

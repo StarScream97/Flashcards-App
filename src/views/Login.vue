@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="login">
     <Navbar />
     <form @submit.prevent="login"  class="lg:w-2/3 w-full px-16 py-2 mt-4">
       <div class="mb-4">
@@ -54,9 +54,13 @@ export default {
             return this.$toasted.show('Please fill all the inputs');            
         }
         const result=await axios.post(`${process.env.VUE_APP_API_URL}user/login`,this.user);
-        console.log(result.data);
+        if(result.data.error){
+          return this.$toasted.show(result.data.errorLog);
+        }
         localStorage.setItem('flashcards-user',JSON.stringify(result.data));
-        this.$router.push('/cards');
+        this.$store.commit('register',result.data);
+        this.$store.commit('loggedIn',true);
+        this.$router.push('/');
     }
   }
 };
