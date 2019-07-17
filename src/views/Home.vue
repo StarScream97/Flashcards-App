@@ -8,6 +8,12 @@
         <p class="mb-2">The app also supports caching, so you can view all the cards and decks even Offline!</p>
         <p class="mb-2">Please note that this is just a prototype, there are lots of areas to improve upon, such as the UI, different sections/pages. And there are tonnes of bugs to be dealt with.</p>
         <p class="mb-2">Having said that, please create and share as much cards as you can to help others as well.</p>
+
+
+        <div class="mt-8">
+          <router-link to="/register" class="mr-4 rounded-full border px-8 py-2">Register</router-link>
+          <router-link to="/login" class="mr-4 rounded-full border px-8 py-2">Login</router-link>
+        </div>
     </div>
   </div>
 </template>

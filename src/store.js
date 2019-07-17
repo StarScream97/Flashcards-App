@@ -55,6 +55,9 @@ export default new Vuex.Store({
     },
     createCategory(context,payload){
       return axios.post(`${process.env.VUE_APP_API_URL}category`,payload);
+    },
+    createDeck(context,payload){
+      return axios.post(`${process.env.VUE_APP_API_URL}deck`,payload);
     }
 
   }

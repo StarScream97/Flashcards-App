@@ -3,22 +3,20 @@
      <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
         <radar-spinner :animation-duration="2000" :size="60" color="#fff" />
       </div>
-    <div class="decks" v-if="!isLoading">
-      <div class="deck px-3 py-2"  v-for="deck in decks" :key="deck._id" @click="viewDeck(deck._id)">
-        <h4 class="font-bold">{{deck.name}}</h4>
-        <p class="font-semibold mb-2 mt-2">{{deck.description}}</p>
-        <p class="mb-2" v-if="deck.categoryId">Category: {{deck.categoryId.name}}</p>
-        <p class="mb-2">{{deck.cards.length}} cards</p>
-        <!-- <div class="flex items-center">
-          <p class="mr-4">Private: </p>
-            <label class="switch">
-              <input type="checkbox" :checked="deck.private">
-            <span class="slider round"></span>
-          </label>
-        </div> -->
-        <p>Private: {{deck.private}}</p>
+      <div class="flex flex-col" v-if="!isLoading">
+        <div class="mb-8 text-right">
+          <router-link to="/profile/decks/create" class=" rounded-full border px-3 py-2">Create A Deck</router-link>
+        </div>
+        <div class="decks">
+          <div class="deck px-3 py-2"  v-for="deck in decks" :key="deck._id" @click="viewDeck(deck._id)">
+            <h4 class="font-bold">{{deck.name}}</h4>
+            <p class="font-semibold mb-2 mt-2">{{deck.description}}</p>
+            <p class="mb-2" v-if="deck.categoryId">Category: {{deck.categoryId.name}}</p>
+            <p class="mb-2">{{deck.cards.length}} cards</p>
+            <p>Private: {{deck.private}}</p>
+          </div>
+        </div>
       </div>
-    </div>
   </div>
 </template>
 

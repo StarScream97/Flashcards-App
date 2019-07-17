@@ -30,6 +30,9 @@
                </div>
            </div>
     </div>-->
+    <div v-if="cards && cards.length==0" class="text-center">
+        <h5>There are no cards in the deck!</h5>        
+    </div>
     <div class="cards w-full">
       <div class="card-wrapper" v-for="(card,index) in cards" :key="card._id">
         <div class="my-card" onclick="flip(event)">

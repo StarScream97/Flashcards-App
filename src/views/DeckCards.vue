@@ -5,6 +5,9 @@
       <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
         <radar-spinner :animation-duration="2000" :size="60" color="#fff" />
       </div>
+      <div v-if="cards && cards.length==0" class="text-center">
+        <h5>There are no cards in the deck!</h5>
+      </div>
       <div class="cards w-full" v-if="!isLoading">
         <div class="card-wrapper" v-for="(card,index) in cards" :key="card._id">
           <div class="my-card" onclick="flip(event)">

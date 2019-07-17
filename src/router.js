@@ -16,6 +16,7 @@ import CreateACategory from './views/UserProfile/CreateACategory'
 import SingleCard from './views/SingleCard'
 import Reports from './views/UserProfile/Reports'
 import Learn from './views/UserProfile/Learn'
+import CreateADeck from './views/UserProfile/CreateADeck'
 
 
 const Nprogress=require('nprogress');
@@ -96,6 +97,11 @@ const router= new Router({
           path: '/profile/decks',
           name: 'mydecks',
           component: MyDecks,
+        },
+        {
+          path: '/profile/decks/create',
+          name: 'createdeck',
+          component: CreateADeck,
         },
         {
           path: '/profile/report',
