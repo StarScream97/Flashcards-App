@@ -4,9 +4,9 @@
       <radar-spinner :animation-duration="2000" :size="60" color="#fff" />
     </div>-->
     <div class="cards w-full">
-      <div class="card-wrapper" v-for="(card,index) in cards" :key="card._id">
+      <div class="card-wrapper h-64" v-for="(card,index) in cards" :key="card._id">
         <div class="my-card" onclick="flip(event)">
-          <div class="front px-6 py-2">
+          <div class="front h-56 px-6 py-2">
             <p class="mb-3 italic">{{card.category.name}}</p>
             <h2 class="mb-3 font-bold">{{card.title}}</h2>
             <p>
@@ -14,11 +14,11 @@
               <a class="font-semibold">{{card.user.name}}</a>
             </p>
           </div>
-          <div class="back px-4 py-1">
+          <div class="back h-56 px-4 py-1">
             <p v-html="card.description.slice(0,200)">...</p>
           </div>
         </div>
-        <div class="flex card-links px-3 py-2 text-white justify-end mt-2">
+        <div class="flex h-8 card-links px-3 py-2 justify-end mt-2">
           <h5 class="mr-2">{{card.likes}}</h5>
           <a @click="likeCard(card._id,index)">
             <i class="far fa-heart"></i>

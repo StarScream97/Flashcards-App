@@ -17,43 +17,36 @@ h2{
 
 html,body{
     font-family: "Source Sans Pro",serif;
-    color: white;
+    color: rgb(63, 60, 60);
     font-weight: 300;
 
+}
+i{
+    color: rgb(36, 35, 35);
 }
 select, option{
     border: none;
     overflow-x: hidden;
 }
-#navbar{
-    color: white;
-    background-color:#1d1d1d;
-}
+
 .home,#login{
     min-height: 100vh;
 }
-input,select{
-    background-color: #1d1d1d;
-    color: white;
-}
+
 a{
     text-decoration: none;
     cursor: pointer;
 }
 .cards{
-    /* display: flex;  */
-    /* flex-wrap: wrap; */
-    /* justify-content: start; */
-    /* align-items: start; */
     display: grid;
     grid-template-columns: repeat(12,1fr);
     grid-gap: 1rem; 
 }
 .card-wrapper{
     grid-column: span 3;
-    background: #1d1d1d;
-    margin: 10px;
-    height: 15rem;
+    background: #cdebfc;
+    /* margin: 10px; */
+    /* height: 15rem; */
     border-radius: 15px;
 }
 
@@ -62,23 +55,23 @@ a{
     transition: transform .6s;
     transform-style: preserve-3d;
     cursor: pointer;
-    height: 80%;
+    /* min-height: 80%; */
 }
 .card-links{
-    border-top: 1px solid rgba(223, 222, 222, 0.171);
+    margin-top: -1rem;
+    border-top:1px solid rgba(88, 88, 88, 0.9);
 }
 .front, .back{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     backface-visibility: hidden;
 }
 
 
 .back{
     transform: rotateY(180deg);
-    margin-top: -8rem;
-    overflow-y: hidden;
+    margin-top: -14rem;
 }
 
 .decks{
@@ -88,8 +81,9 @@ a{
 }
 .deck{
     grid-column: span 3;
-    background: #1d1d1d;
+    background: #cfcece;
     max-height: 15rem;
+    border-radius: 2px;
     /* width: 20rem; */
     cursor: pointer;    
 }

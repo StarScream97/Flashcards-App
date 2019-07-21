@@ -57,10 +57,13 @@ export default {
         if(result.data.error){
           return this.$toasted.show(result.data.errorLog);
         }
-        localStorage.setItem('flashcards-user',JSON.stringify(result.data));
+        // localStorage.setItem('flashcards-user',JSON.stringify(result.data));
         this.$store.commit('register',result.data);
-        this.$store.commit('loggedIn',true);
-        this.$router.push('/');
+      this.$store.commit('loggedIn',true);
+        this.$toasted.show('Logged In! Redirecting you to the home page...');
+        setTimeout(() => {
+          this.$router.push('/');
+        }, 1500);
     }
   }
 };

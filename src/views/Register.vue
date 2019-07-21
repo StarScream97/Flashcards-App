@@ -84,7 +84,11 @@ export default {
               return this.$toasted.show("Passwords do not match!");
           }
         this.$store.dispatch('register',this.user);
-        this.$router.push('/');
+        // this.$router.push('/');
+        this.$toasted.show('Registerd! Redirecting you to the home page...');
+        setTimeout(() => {
+          this.$router.push('/');
+        }, 1500);
       }
   }
 };

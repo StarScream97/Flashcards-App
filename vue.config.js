@@ -5,7 +5,7 @@ module.exports = {
         navigateFallback: '/index.html',
         runtimeCaching: [
           {
-            urlPattern: new RegExp('^https://api.zippopotam.us/us/'),
+            urlPattern: new RegExp('^https://flashcards-server-app.herokuapp.com/'),
             handler: 'networkFirst',
             options: {
               networkTimeoutSeconds: 20,

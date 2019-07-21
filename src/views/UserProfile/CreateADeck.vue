@@ -108,7 +108,7 @@ export default {
   },
   created() {
       this.fetchCategories();
-      const user=JSON.parse(localStorage.getItem('flashcards-user'));
+      const user=this.$store.state.user;
       if(!user){
           return this.$toasted.show('You should be logged In!');
       }

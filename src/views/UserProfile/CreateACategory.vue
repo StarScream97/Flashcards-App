@@ -27,7 +27,7 @@
           <div class="flex items-center justify-between">
             <button
               @click="createCategory"
-              class="shadow-lg bg-gray-500 hover:bg-gray-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              class="shadow-lg bg-gray-300 hover:bg-gray-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
             >Create</button>
           </div>
@@ -70,7 +70,7 @@ export default {
     }
   },
   created(){
-    const user=JSON.parse(localStorage.getItem('flashcards-user'));
+    const user=this.$store.state.user;
     if(user){
       this.user=user._id;
     }

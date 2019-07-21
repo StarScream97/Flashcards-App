@@ -1,7 +1,7 @@
 <template>
   <div>
      <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
-        <radar-spinner :animation-duration="2000" :size="60" color="#fff" />
+        <radar-spinner :animation-duration="2000" :size="60" color="#000" />
       </div>
       <div class="flex flex-col" v-if="!isLoading">
         <div class="mb-8 text-right">
@@ -60,7 +60,7 @@ export default {
     },
   },
   created() {
-    const user = JSON.parse(localStorage.getItem("flashcards-user"));
+    const user = this.$store.state.user;
     this.email = user.email;
     this.fetchDecks;
   }

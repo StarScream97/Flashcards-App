@@ -14,15 +14,10 @@
               v-model="card.title"
             />
           </div>
-          <div class="mb-6">
+
+          <div class="mb-4">
             <label class="block  text-sm font-bold mb-2" for="description">Description</label>
-             <quill-editor
-                          class="text-white" 
-                          v-model="card.description"
-                          ref="myQuillEditor"
-                          :options="editorOption"
-                          >
-            </quill-editor>
+            <textarea class="shadow appearance-none rounded w-full py-2 px-3 outline-none  leading-tight"  name="description" id="" cols="30" rows="10" placeholder="Description" v-model="card.description"></textarea>
           </div>
           
           <div class="mb-6">
@@ -38,7 +33,7 @@
           <div class="flex items-center justify-between">
             <button
               @click="createACard"
-              class="shadow-lg bg-gray-500 hover:bg-gray-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              class="shadow-lg bg-gray-300 hover:bg-gray-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
             >Create</button>
           </div>
@@ -81,13 +76,14 @@ export default {
       if(!this.card.title || !this.card.description || !this.card.category || !this.card.user){
         return this.$toasted.show('Please fill all the input fields!');
       }
+      this.$toasted.show('Creating the card...');
       const result=await axios.post(`${process.env.VUE_APP_API_URL}card`,this.card);
       this.$router.push('/search');
     }
   },
   created(){
     this.fetchCategories();
-    const user=JSON.parse(localStorage.getItem('flashcards-user'));
+    const user=this.$store.state.user;
     if(user){
       this.card.user=user._id;
     }

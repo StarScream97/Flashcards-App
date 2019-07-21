@@ -2,7 +2,7 @@
   <div class="w-full overflow-x-hidden search">
     <Navbar />
     <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
-      <radar-spinner :animation-duration="2000" :size="60" color="#fff" />
+      <radar-spinner :animation-duration="2000" :size="60" color="#000" />
     </div>
     <div class="sm:px-8 py-4 flex flex-col" v-if="!isLoading">
       <div class="search-filters w-full mb-10">
@@ -38,10 +38,10 @@
       </div>
 
       <div class="search-results w-full px-3">
-        <div class="cards w-full">
-          <div class="card-wrapper" v-for="(card,index) in filteredCards" :key="card._id">
+        <transition-group name="flip-list" tag="div" class="cards w-full">
+          <div class="card-wrapper h-64" v-for="(card,index) in filteredCards" :key="card._id">
             <div class="my-card" onclick="flip(event)">
-              <div class="front px-6 py-2">
+              <div class="front h-56 px-6 py-2">
                 <p class="mb-3 italic">{{card.category.name}}</p>
                 <h2 class="mb-3 font-bold">{{card.title}}</h2>
                 <p>
@@ -49,27 +49,28 @@
                   <a class="font-semibold">{{card.user.name}}</a>
                 </p>
               </div>
-              <div class="back px-4 py-1">
-                <p v-html="card.description.slice(0,200)">...</p>
+              <div class="back px-2 py-3 h-56 ">
+                <p>{{card.description.slice(0,200)}}...</p>
               </div>
             </div>
-            <div class="flex card-links px-3 py-2 text-white justify-end mt-2">
+            <div class="flex h-8 card-links px-3 py-2 justify-end mt-2">
               <h5 class="mr-2">{{card.likes}}</h5>
               <a @click="likeCard(card._id,index)">
                 <i class="far fa-heart"></i>
               </a>
-             <a class="ml-4" @click.stop="$refs.menu.open($event,{cardId:card._id})">
-              <i class="fas fa-folder-plus"></i>
-            </a>
+              <a class="ml-4" @click.stop="$refs.menu.open($event,{cardId:card._id})">
+                <i class="fas fa-folder-plus"></i>
+              </a>
               <a href="#" class="ml-4" @click="saveCard(card._id)">
                 <i class="fas fa-save"></i>
               </a>
-              <router-link :to="{name:'singlecard',params:{cardId:card._id}}" class="ml-4"><i class="fas fa-eye"></i></router-link>
+              <router-link :to="{name:'singlecard',params:{cardId:card._id}}" class="ml-4">
+                <i class="fas fa-eye"></i>
+              </router-link>
             </div>
           </div>
-        </div>
+        </transition-group>
       </div>
-
 
       <vue-context ref="menu">
         <template slot-scope="child">
@@ -79,7 +80,6 @@
           </li>
         </template>
       </vue-context>
-
     </div>
   </div>
 </template>
@@ -98,7 +98,7 @@ export default {
   },
   data() {
     return {
-      user:{},
+      user: {},
       toggleCard: false,
       search: {
         text: "",
@@ -108,41 +108,42 @@ export default {
       cards: [],
       categories: [],
       isLoading: true,
-      decks:[]
+      decks: []
     };
   },
   methods: {
-    async saveCard(cardId){
-      const results=await this.$store.dispatch('saveCard',{
+    async saveCard(cardId) {
+      const results = await this.$store.dispatch("saveCard", {
         cardId,
-        userId:this.user._id
+        userId: this.user._id
       });
-      if(results.data.error){
+      if (results.data.error) {
         return this.$toasted.show(results.data.errorLog);
       }
-      this.$toasted.show('Card successfully saved!');
+      this.$toasted.show("Card successfully saved!");
     },
     async fetchCategories() {
       // this.$store.dispatch('fetchCategories');
-      const result = await axios.get(`${process.env.VUE_APP_API_URL}category`);
-      // this.categories=this.$store.state.categories;   //doesnt immediately store the results in category array, idk im stupid
+      const result = await this.$store.dispatch("fetchCategories");
       this.categories = result.data;
     },
     async addCardToDeck(deckId, card) {
-        const results=await this.$store.dispatch('addCardToDeck',{cardId:card.cardId,deckId});
-        if(results.data.error){
-            return this.$toasted.show(results.data.errorLog);
-        }
-        this.$toasted.show('Card added successfully to the deck!');
+      const results = await this.$store.dispatch("addCardToDeck", {
+        cardId: card.cardId,
+        deckId
+      });
+      if (results.data.error) {
+        return this.$toasted.show(results.data.errorLog);
+      }
+      this.$toasted.show("Card added successfully to the deck!");
     },
     async fetchCards() {
       // this.$store.dispatch('fetchCards');
-      const result = await this.$store.dispatch('fetchCards');
+      const result = await this.$store.dispatch("fetchCards");
       this.cards = result.data;
       this.isLoading = false;
     },
     async likeCard(cardId, index) {
-   
       const result = await this.$store.dispatch("likeCard", {
         cardId,
         userId: this.user._id
@@ -150,6 +151,7 @@ export default {
       if (result.data.error) {
         return this.$toasted.show(result.data.errorLog);
       }
+      this.$toasted.show('You liked the card');
       this.cards[index].likes++;
       this.$forceUpdate();
     }
@@ -170,18 +172,25 @@ export default {
         return card.title.toLowerCase().match(this.search.text.toLowerCase());
       });
     },
-    async fetchDecks(){
-      const results=await this.$store.dispatch('fetchDecks',this.user.email);   
-      this.decks=results.data.decks;
+    async fetchDecks() {
+      const results = await this.$store.dispatch("fetchDecks", this.user.email);
+      this.decks = results.data.decks;
     }
   },
   mounted() {
     const user = JSON.parse(localStorage.getItem("flashcards-user"));
-    this.user=user;
+    this.user = user;
     this.fetchCategories();
     this.fetchCards();
     this.fetchDecks;
   }
 };
 </script>
+
+
+<style scoped>
+.flip-list-move {
+  transition: transform 1s;
+}
+</style>
 

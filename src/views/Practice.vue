@@ -1,7 +1,7 @@
 <template>
     <div>
         <Navbar />
-        <div id="practice">
+        <div id="practice" class="px-4 lg:px-16 py-2">
             <p>This is where you practice a number of cards on a certain category.</p>
         </div>
     </div>

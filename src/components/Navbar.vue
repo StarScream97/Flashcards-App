@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-md lg:px-16 text-white px-4 py-2" id="navbar">
+  <div class="shadow-md lg:px-16  px-4 py-2" id="navbar">
       <div class="lg:flex lg:justify-between">
         <div class="header">
           <router-link to="/"><h5>Flashcards</h5></router-link>
@@ -37,7 +37,7 @@ export default {
     // }
   },
   created(){
-    if(JSON.parse(localStorage.getItem('flashcards-user'))){
+    if(JSON.parse(localStorage.getItem('flashcards-vuex'))){
       this.isLoggedIn=true;
     }
     // const user=JSON.parse(localStorage.getItem('flashcards-user'));

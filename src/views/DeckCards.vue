@@ -3,26 +3,23 @@
     <Navbar />
     <div id="deckCards">
       <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
-        <radar-spinner :animation-duration="2000" :size="60" color="#fff" />
+        <radar-spinner :animation-duration="2000" :size="60" color="#000" />
       </div>
-      <div v-if="cards && cards.length==0" class="text-center">
-        <h5>There are no cards in the deck!</h5>
-      </div>
-      <div class="cards w-full" v-if="!isLoading">
-        <div class="card-wrapper" v-for="(card,index) in cards" :key="card._id">
+      <div class="cards w-full px-16 py-8" v-if="!isLoading">
+        <div class="card-wrapper h-64" v-for="(card,index) in cards" :key="card._id">
           <div class="my-card" onclick="flip(event)">
-            <div class="front px-6 py-2">
+            <div class="front h-56 px-6 py-2">
               <h2 class="mb-3 mt-8 font-bold">{{card.title}}</h2>
               <p class="mt-12">
                 by
                 <a class="font-semibold">{{card.user.name}}</a>
               </p>
             </div>
-            <div class="back px-4 py-1">
-              <p v-html="card.description.slice(0,200)">...</p>
+            <div class="back h-56 px-4 py-1">
+              <p>{{card.description.slice(0,200)}}...</p>
             </div>
           </div>
-          <div class="flex card-links px-3 py-2 text-white justify-end mt-2">
+          <div class="flex h-8 card-links px-3 py-2  justify-end mt-2">
             <h5 class="mr-2">{{card.likes}}</h5>
             <a @click="likeCard(card._id,index)">
               <i class="far fa-heart"></i>
@@ -72,7 +69,7 @@ export default {
   },
   methods:{
     async likeCard(cardId, index) {
-      const user = JSON.parse(localStorage.getItem("flashcards-user"));
+      const user = this.$store.state.user;
       if (!user) {
         return this.$toasted.show("You must be logged in to like cards");
       }
@@ -98,7 +95,7 @@ export default {
     },
   },
   created() {
-    const user = JSON.parse(localStorage.getItem("flashcards-user"));
+    const user = this.$store.state.user;
     this.user=user;
     this.deckId = this.$route.params.deckId;
     this.fetchCards;

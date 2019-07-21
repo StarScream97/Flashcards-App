@@ -1,15 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 const axios=require('axios')
+import VuexPersist from 'vuex-persist'
+
+
 
 Vue.use(Vuex)
+
+const vuexLocalStorage=new VuexPersist({
+  key:'flashcards-vuex',
+  storage: window.localStorage,
+  reducer:state=>({
+    user:state.user,
+    isLoggedIn:state.isLoggedIn,
+    themeMode:state.themeMode
+  })
+})
+
 
 export default new Vuex.Store({
   state: {
     user:{},
     categories:[],
     cards:[],
-    isLoggedIn:false
+    isLoggedIn:false,
+    themeMode:'light'
   },
   mutations: {
     register(state,user){
@@ -23,6 +38,9 @@ export default new Vuex.Store({
     },
     loggedIn(state,value){
       state.isLoggedIn=value;
+    },
+    setUser(state,payload){
+      state.user=payload;
     }
   },
   actions: {
@@ -34,9 +52,7 @@ export default new Vuex.Store({
       return axios.get(`${process.env.VUE_APP_API_URL}card/card/${cardId}`);
     },
     async fetchCategories(context){
-      const result=await axios.get(`${process.env.VUE_APP_API_URL}category`);
-      // console.log(result);
-      context.commit('setCategories',result.data);
+      return axios.get(`${process.env.VUE_APP_API_URL}category`);
     },
     fetchCards(context){
       return axios.get(`${process.env.VUE_APP_API_URL}card`);
@@ -58,7 +74,12 @@ export default new Vuex.Store({
     },
     createDeck(context,payload){
       return axios.post(`${process.env.VUE_APP_API_URL}deck`,payload);
+    },
+    deleteCard(context,payload){
+      return axios.delete(`${process.env.VUE_APP_API_URL}card/delete/${payload.userId}/${payload.cardId}`);
     }
 
-  }
+  },
+  plugins: [vuexLocalStorage.plugin]
+  
 })

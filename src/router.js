@@ -17,6 +17,7 @@ import SingleCard from './views/SingleCard'
 import Reports from './views/UserProfile/Reports'
 import Learn from './views/UserProfile/Learn'
 import CreateADeck from './views/UserProfile/CreateADeck'
+import EditCard from './views/UserProfile/EditCard'
 
 
 const Nprogress=require('nprogress');
@@ -112,6 +113,11 @@ const router= new Router({
           path: '/profile/learn',
           name: 'learn',
           component: Learn,
+        },
+        {
+          path: '/profile/card/edit/:cardId',
+          name: 'editcard',
+          component: EditCard,
         }
       ]
     },

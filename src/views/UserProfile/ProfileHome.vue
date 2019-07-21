@@ -1,9 +1,9 @@
 <template>
   <div>
     <Navbar />
-    <div class="w-full flex flex-col lg:flex-row px-8 py-4 min-h-screen">
-      <div class="mr-2 lg:w-1/6 w-full ">
-        <div class="flex flex-col">
+    <div class="w-full flex flex-col lg:flex-row px-8 min-h-screen">
+      <div class="mr-2 lg:w-1/6 w-full py-2">
+        <div class="flex flex-col ">
             <div class="mb-4 flex  flex-col">
                 <p class=" mb-2 uppercase">Profile</p>
                 <div class="lg:flex-col  flex">
@@ -23,7 +23,7 @@
             </div>
         </div>
       </div>
-      <router-view class="px-2 py-2 w-full"></router-view>
+      <router-view class="px-2 py-8 w-full shadow"></router-view>
       <!-- <div class="px-2 py-2 lg:w-2/3 w-full">
         <div class="lg:w-1/2 w-full">
           <h6>{{user.name}}</h6>
@@ -54,13 +54,14 @@ export default {
   },
   methods: {
     async fetchUserProfile(){
-      const user=JSON.parse(localStorage.getItem('flashcards-user'));
+      const user=this.$store.state.user;
 
       const result=await axios.get(`${process.env.VUE_APP_API_URL}user/profile/${user.email}`);
       if(!result.error){
         this.user=result.data;
         // console.log(result.data);
-        localStorage.setItem('flashcards-user',JSON.stringify(result.data));
+        // localStorage.setItem('flashcards-user',JSON.stringify(result.data));
+        this.$store.commit('setUser',result.data);
       }
     }
   },

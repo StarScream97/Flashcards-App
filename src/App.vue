@@ -6,6 +6,6 @@
 
 <style>
 #app{
-  background-color: #121212;
+  /* background-color: #121212; */
 }
 </style>
