@@ -18,7 +18,7 @@
           <div class="mb-4">
             <label class="block text-sm font-bold mb-2" for="description">Description</label>
             <textarea
-              class="shadow appearance-none rounded w-full py-2 px-3 outline-none leading-tight bg-black"
+              class="shadow appearance-none rounded w-full py-2 px-3 outline-none leading-tight"
               name="description"
               id
               cols="30"

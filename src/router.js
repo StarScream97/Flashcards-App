@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import CreateACard from './views/CreateACard'
-import Search from './views/Search'
+import Cards from './views/Cards'
+import Decks from './views/Decks'
 import Register from './views/Register'
 import MyCards from './views/UserProfile/MyCards'
 import Login from './views/Login'
@@ -11,6 +12,7 @@ import Practice from './views/Practice'
 import Info from './views/UserProfile/Info'
 import SavedCards from './views/UserProfile/SavedCards'
 import MyDecks from './views/UserProfile/MyDecks'
+import SavedDecks from './views/UserProfile/SavedDecks'
 import DeckCards from './views/DeckCards'
 import CreateACategory from './views/UserProfile/CreateACategory'
 import SingleCard from './views/SingleCard'
@@ -52,9 +54,14 @@ const router= new Router({
       component:CreateACard
     },
     {
-      path:'/search',
+      path:'/cards',
       name:'searchcard',
-      component:Search
+      component:Cards
+    },
+    {
+      path:'/decks',
+      name:'decks',
+      component:Decks
     },
     {
       path:'/:deckId/cards',
@@ -80,7 +87,6 @@ const router= new Router({
           path: '/profile/info',
           name: 'info',
           component: Info,
-          props:true
         },
         {
           path: '/profile/mycards',
@@ -89,7 +95,7 @@ const router= new Router({
           props:true
         },
         {
-          path: '/profile/saved',
+          path: '/profile/savedcards',
           name: 'savedcards',
           component: SavedCards,
           props:true
@@ -98,6 +104,11 @@ const router= new Router({
           path: '/profile/decks',
           name: 'mydecks',
           component: MyDecks,
+        },
+        {
+          path: '/profile/saveddecks',
+          name: 'saveddecks',
+          component: SavedDecks,
         },
         {
           path: '/profile/decks/create',
@@ -114,12 +125,13 @@ const router= new Router({
           name: 'learn',
           component: Learn,
         },
-        {
-          path: '/profile/card/edit/:cardId',
-          name: 'editcard',
-          component: EditCard,
-        }
+       
       ]
+    },
+    {
+      path: '/edit/:cardId',
+      name: 'editcard',
+      component: EditCard,
     },
     {
       path: '/createcategory',

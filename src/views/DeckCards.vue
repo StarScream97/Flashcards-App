@@ -5,12 +5,12 @@
       <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
         <radar-spinner :animation-duration="2000" :size="60" color="#000" />
       </div>
-      <div class="cards w-full px-16 py-8" v-if="!isLoading">
+      <div class="cards w-full lg:px-16 px-4 py-8" v-if="!isLoading">
         <div class="card-wrapper h-64" v-for="(card,index) in cards" :key="card._id">
           <div class="my-card" onclick="flip(event)">
             <div class="front h-56 px-6 py-2">
-              <h2 class="mb-3 mt-8 font-bold">{{card.title}}</h2>
-              <p class="mt-12">
+              <h2 class="mb-3 mt-2 font-bold">{{card.title}}</h2>
+              <p class="mt-4">
                 by
                 <a class="font-semibold">{{card.user.name}}</a>
               </p>

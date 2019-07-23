@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class=" px-16 py-4" id="create">
+    <div class=" lg:px-16 px-2 py-4" id="create">
       <div class="lg:w-2/3 w-full">
         <form  class="shadow-md rounded lg:px-8 px-2 pt-6 pb-8 mb-2">
           <div class="mb-4">

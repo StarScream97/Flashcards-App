@@ -44,7 +44,7 @@
             <label class="block  text-sm font-bold mb-2" for="category">Category</label>
             <select
               class="shadow outline-none rounded w-full py-2 px-3  mb-3 leading-tight"
-              v-model="categoryId"
+              v-model="deck.categoryId"
             >
               <option disabled value>Please select a category</option>
               <option v-for="category in categories" :key="category._id" :value="category._id">{{category.name}}</option>
@@ -73,15 +73,15 @@ export default {
         name: "",
         description: "",
         private: false,
+        categoryId: "",
       },
       user:{},
-      categoryId: "",
       categories:[]
     };
   },
   methods: {
     async createdeck() {
-      if (!this.deck.name || !this.deck.description) {
+      if (!this.deck.name || !this.deck.description || !this.deck.categoryId) {
         return this.$toasted.show("Please fill all the inputs");
       }
         const userId=this.user._id;
@@ -92,13 +92,14 @@ export default {
             name:this.deck.name,
             description:this.deck.description,
             private:this.deck.private,
-            userId:this.user._id
+            userId:this.user._id,
+            categoryId:this.deck.categoryId
         }
-        if(!this.deck.private){
-            newDeck.categoryId=this.categoryId
-        }
-        await this.$store.dispatch('createDeck',newDeck);
-
+        // if(!this.deck.private){
+        //     newDeck.categoryId=this.categoryId
+        // }
+        const result=await this.$store.dispatch('createDeck',newDeck);
+        this.$store.commit('newlyCreatedDeck',result.deck);
         this.$router.push("/profile/decks");
     },
     async fetchCategories(){

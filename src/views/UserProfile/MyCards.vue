@@ -11,11 +11,11 @@
             <h2 class="mb-3 font-bold">{{card.title}}</h2>
             <p>
               by
-              <a class="font-semibold">{{card.user.name}}</a>
+              <a class="font-semibold">{{userName}}</a>
             </p>
           </div>
           <div class="back h-56 px-4 py-1">
-            <p v-html="card.description.slice(0,200)">...</p>
+            <p>{{card.description.slice(0,180)}}...</p>
           </div>
         </div>
         <div class="flex h-8 card-links px-3 py-2 justify-end mt-2">
@@ -57,8 +57,8 @@ export default {
     return {
       isLoading: true,
       decks: [],
-      email: "",
-      selectedCardId: ""
+      selectedCardId: "",
+      userName:''
     };
   },
   methods: {
@@ -90,7 +90,7 @@ export default {
     },
     async fetchDeckNames() {
       const results = await axios.get(
-        `${process.env.VUE_APP_API_URL}user/fetchdeck/${this.email}`
+        `${process.env.VUE_APP_API_URL}user/fetchdeck/${this.$store.state.user.email}`
       );
       this.isLoading = false;
       if (results.data.error) {
@@ -102,9 +102,10 @@ export default {
     }
   },
   created() {
-    const user = JSON.parse(localStorage.getItem("flashcards-user"));
-    this.email = user.email;
+    // const user = JSON.parse(localStorage.getItem("flashcards-user"));
+    // this.email = user.email;
     this.fetchDeckNames();
+    this.userName=this.$store.state.user.name;
   }
 };
 </script>

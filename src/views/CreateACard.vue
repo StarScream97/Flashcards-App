@@ -1,9 +1,9 @@
 <template>
   <div>
     <Navbar />
-    <div class=" px-16 py-4" id="create">
+    <div class=" lg:px-16 px-4 py-4" id="create">
       <div class="lg:w-2/3 w-full">
-        <form  class="shadow-md rounded lg:px-8 pt-6 pb-8 mb-2 px-1">
+        <form  class="shadow-md rounded lg:px-8 pt-6 pb-8 mb-2 px-2">
           <div class="mb-4">
             <label class="block  text-sm font-bold mb-2" for="title">Title</label>
             <input
@@ -78,7 +78,8 @@ export default {
       }
       this.$toasted.show('Creating the card...');
       const result=await axios.post(`${process.env.VUE_APP_API_URL}card`,this.card);
-      this.$router.push('/search');
+      this.$store.commit('newCardAdded',result.data);
+      this.$router.push('/cards');
     }
   },
   created(){

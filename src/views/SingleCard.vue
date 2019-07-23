@@ -82,8 +82,8 @@ export default {
       );
       this.card = result.data;
       this.isLoading = false;
-      if(this.card._id===this.user._id){
-        this.theCreatorHimself=false;
+      if(this.card.user._id===this.user._id){
+        this.theCreatorHimself=true;
       }
     },
     async fetchDecks() {

@@ -14,6 +14,28 @@ module.exports = {
                 statuses: [0, 200]
               }
             }
+          },
+          {
+            urlPattern: new RegExp('^http://fontawesome.com/'),
+            handler: 'networkFirst',
+            options: {
+              networkTimeoutSeconds: 20,
+              cacheName: 'icons-cache',
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          },
+          {
+            urlPattern: new RegExp('^http://fonts.google.com/'),
+            handler: 'networkFirst',
+            options: {
+              networkTimeoutSeconds: 20,
+              cacheName: 'fonts-cache',
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
           }
         ]
       }

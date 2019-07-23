@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
+     <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
       <radar-spinner :animation-duration="2000" :size="60" color="#000" />
     </div>
     <div class="flex justify-end mr-5" v-if="togglingPrivacy">
@@ -10,8 +10,8 @@
     </div>
 
     <div class="flex flex-col" v-if="!isLoading">
-      <div class="mb-8 text-right">
-        <router-link to="/profile/decks/create" class="rounded-full border px-3 py-2">Create A Deck</router-link>
+      <div class="lg:px-16 px-4 py-4" v-if="decks && decks.length==0">
+          <p>No Saved Decks</p>
       </div>
       <div class="decks">
         <div class="deck px-3 py-2" v-for="(deck,index) in decks" :key="deck._id">
@@ -28,6 +28,11 @@
               class="fas fa-exchange-alt mt-5"
               @click="togglePrivate(deck._id,index)"
             ></i>
+            <i
+              class="fas fa-times mt-5 ml-5"
+              @click="removeSavedDeck(deck._id,index)"
+            ></i>
+            
           </div>
         </div>
       </div>
@@ -70,6 +75,16 @@ export default {
       this.decks[index].private = !this.decks[index].private;
       this.togglingPrivacy = false;
       this.$forceUpdate();
+    },
+    async removeSavedDeck(deckId,index){
+        const result=await axios.delete(`${process.env.VUE_APP_API_URL}deck/deletesaved/${this.$store.state.user._id}/${deckId}`);
+        if(result.data.error){
+            return this.$toasted.show(result.data.errorLog);
+        }
+        this.$toasted.show(result.data);
+        this.decks.splice(this.decks[index],1);
+        this.$store.commit('deleteFromSavedDecks',index);
+        this.$forceUpdate();
     }
   },
   computed: {
@@ -77,13 +92,8 @@ export default {
       // const results = await axios.get(
       //   `${process.env.VUE_APP_API_URL}user/fetchdeck/${this.email}`
       // );
-      const results = await this.$store.dispatch("fetchDecks", this.email);
-      if (results.data.error) {
-        return this.$toasted.show(
-          "Oops! Something went wrong! Please go to another tab and revisit this one."
-        );
-      }
-      this.decks = results.data.decks;
+      const decks = this.$store.state.user.savedDecks;
+      this.decks = decks;
       this.isLoading = false;
     }
   },

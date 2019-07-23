@@ -61,7 +61,7 @@
               <a class="ml-4" @click.stop="$refs.menu.open($event,{cardId:card._id})">
                 <i class="fas fa-folder-plus"></i>
               </a>
-              <a href="#" class="ml-4" @click="saveCard(card._id)">
+              <a class="ml-4" @click="saveCard(card._id,index)">
                 <i class="fas fa-save"></i>
               </a>
               <router-link :to="{name:'singlecard',params:{cardId:card._id}}" class="ml-4">
@@ -112,7 +112,7 @@ export default {
     };
   },
   methods: {
-    async saveCard(cardId) {
+    async saveCard(cardId,index) {
       const results = await this.$store.dispatch("saveCard", {
         cardId,
         userId: this.user._id
@@ -121,6 +121,7 @@ export default {
         return this.$toasted.show(results.data.errorLog);
       }
       this.$toasted.show("Card successfully saved!");
+      this.$store.commit('newCardSaved',this.cards[index])
     },
     async fetchCategories() {
       // this.$store.dispatch('fetchCategories');
@@ -144,6 +145,7 @@ export default {
       this.isLoading = false;
     },
     async likeCard(cardId, index) {
+      console.log(cardId)
       const result = await this.$store.dispatch("likeCard", {
         cardId,
         userId: this.user._id
@@ -173,13 +175,13 @@ export default {
       });
     },
     async fetchDecks() {
-      const results = await this.$store.dispatch("fetchDecks", this.user.email);
+      const results = await this.$store.dispatch("fetchDecks", this.$store.state.user.email);
       this.decks = results.data.decks;
     }
   },
   mounted() {
-    const user = JSON.parse(localStorage.getItem("flashcards-user"));
-    this.user = user;
+    // const user = JSON.parse(localStorage.getItem("flashcards-user"));
+    this.user = this.$store.state.user;
     this.fetchCategories();
     this.fetchCards();
     this.fetchDecks;

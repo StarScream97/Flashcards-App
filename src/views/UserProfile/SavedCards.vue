@@ -34,7 +34,11 @@
     <div v-if="isLoading" class="spinner flex justify-center items-center w-full h-64">
       <radar-spinner :animation-duration="2000" :size="60" color="#000" />
     </div>
-    <div class="cards w-full" v-if="!isLoading">
+
+      <div class="lg:px-16 px-4 py-4" v-if="!isLoading && cards.length==0">
+        <p>No saved cards.</p>
+      </div>
+    <div class="cards w-full flex flex-col" v-if="!isLoading">
       <div class="card-wrapper h-64" v-for="(card,index) in cards" :key="card._id">
         <div class="my-card" onclick="flip(event)">
           <div class="front h-56 px-6 py-2">
@@ -60,6 +64,9 @@
           <router-link :to="{name:'singlecard',params:{cardId:card._id}}" class="ml-4">
             <i class="fas fa-eye"></i>
           </router-link>
+          <a class="ml-4" @click="removeSavedCard(card._id,index)">
+            <i class="fas fa-times"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -89,7 +96,7 @@ export default {
     return {
       cards: [],
       decks: [],
-      isLoading:true
+      isLoading: true
     };
   },
   methods: {
@@ -114,17 +121,28 @@ export default {
         return this.$toasted.show(results.data.errorLog);
       }
       this.$toasted.show("Card added successfully to the deck!");
+    },
+    async removeSavedCard(cardId,index){
+      const result=await axios.delete(`${process.env.VUE_APP_API_URL}card/deletesaved/${this.$store.state.user._id}/${cardId}`);
+        if(result.data.error){
+            return this.$toasted.show(result.data.errorLog);
+        }
+        this.$toasted.show(result.data);
+        this.cards.splice(this.cards[index],1);
+        this.$store.commit('deleteFromSavedCards',index);
+        this.$forceUpdate();
     }
   },
   computed: {
     async fetchSavedCards() {
-      const results = await axios.get(
-        `${process.env.VUE_APP_API_URL}user/savedcards/${this.$route.params.email}`
-      );
-      if (results.data.error) {
-        return this.$toasted.show(results.data.errorLog);
-      }
-      this.cards = results.data.savedCards;
+      // const results = await axios.get(
+      //   `${process.env.VUE_APP_API_URL}user/savedcards/${this.$route.params.email}`
+      // );
+      // if (results.data.error) {
+      //   return this.$toasted.show(results.data.errorLog);
+      // }
+      // this.cards = results.data.savedCards;
+      this.cards=this.$store.state.user.savedCards;
     },
     async fetchDecks() {
       const results = await this.$store.dispatch(
@@ -132,7 +150,7 @@ export default {
         this.$route.params.email
       );
       this.decks = results.data.decks;
-      this.isLoading=false;
+      this.isLoading = false;
     }
   },
   created() {

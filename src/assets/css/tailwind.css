@@ -82,7 +82,7 @@ a{
 .deck{
     grid-column: span 3;
     background: #cfcece;
-    max-height: 15rem;
+    /* max-height: 15rem; */
     border-radius: 2px;
     /* width: 20rem; */
     cursor: pointer;    

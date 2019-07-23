@@ -5,9 +5,10 @@
           <router-link to="/"><h5>Flashcards</h5></router-link>
         </div>
         <div class="navbar-links flex flex-wrap">
+          <router-link to="/cards" class="mr-4">Cards</router-link>
+          <router-link to="/decks" class="mr-4">Decks</router-link>
           <router-link to="/create" class="mr-4">Create a card</router-link>
           <router-link to="/createcategory" class="mr-4">Create Category</router-link>
-          <router-link to="/search" class="mr-4">Search</router-link>
           <router-link to="/practice" class="mr-4">Practice</router-link>
           <router-link to="/profile" v-if="isLoggedIn" class="mr-4">Profile</router-link>
           <!-- <router-link to="/register" v-if="!isLoggedIn" class="mr-4">Register</router-link>

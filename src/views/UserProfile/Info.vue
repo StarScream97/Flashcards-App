@@ -1,15 +1,15 @@
 <template>
-    <div class="flex flex-col  mt-8 items-center" v-if="userDetails">
+    <div class="flex flex-col  mt-8 items-center" >
         <h5>
-            {{userDetails.name}}
+            {{this.$store.state.user.name}}
         </h5>
-        <p>{{userDetails.email}}</p>
+        <p>{{this.$store.state.user.email}}</p>
     </div>
 </template>
 
 <script>
 export default {
-    props:['userDetails'],
+    // props:['userDetails'],
     data(){
         return{
             

@@ -41,6 +41,21 @@ export default new Vuex.Store({
     },
     setUser(state,payload){
       state.user=payload;
+    },
+    newCardAdded(state,card){
+      state.user.cards.push(card);
+    },
+    newlyCreatedDeck(state,deck){
+      state.user.savedDecks.push(deck);
+    },
+    deleteFromSavedDecks(state,index){
+      state.user.savedDecks.splice(index,1);
+    },
+    deleteFromSavedCards(state,index){
+      state.user.savedCards.splice(index,1);
+    },
+    newCardSaved(state,card){
+      state.user.savedCards.push(card);
     }
   },
   actions: {
@@ -66,6 +81,10 @@ export default new Vuex.Store({
     fetchDecks(context,email){
       return axios.get(`${process.env.VUE_APP_API_URL}user/fetchdeck/${email}`)
     },
+    fetchAllDecks(context){
+      return axios.get(`${process.env.VUE_APP_API_URL}deck`)
+    },
+    
     addCardToDeck(context,payload){
       return axios.post(`${process.env.VUE_APP_API_URL}deck/addCard`,payload);
     },
@@ -77,8 +96,7 @@ export default new Vuex.Store({
     },
     deleteCard(context,payload){
       return axios.delete(`${process.env.VUE_APP_API_URL}card/delete/${payload.userId}/${payload.cardId}`);
-    }
-
+    },
   },
   plugins: [vuexLocalStorage.plugin]
   

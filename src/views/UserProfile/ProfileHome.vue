@@ -10,8 +10,9 @@
                   <!-- <router-link class="mb-1 mr-4" to="/profile/info" ><i class="fas fa-user-alt mr-3"></i> <strong> Info</strong></router-link> -->
                   <router-link class="mb-1 mr-4" :to="{name:'info', params:{userDetails:{name:user.name,email:user.email}}}" ><i class="fas fa-user-alt mr-3"></i> <strong> Info</strong></router-link>
                   <router-link class="mb-1 mr-4" :to="{name:'cards',params:{cards:user.cards}}"><i class="fas fa-square mr-3"></i><strong>My Cards</strong> </router-link>
+                  <router-link class="mb-1" :to="{name:'mydecks',params:{email:user.email}}"><i class="fas fa-box mr-3"></i><strong>My Decks</strong> </router-link>
                   <router-link class="mb-1" :to="{name:'savedcards',params:{email:user.email}}"><i class="fas fa-star mr-3"></i><strong>Saved Cards</strong> </router-link>
-                  <router-link class="mb-1" :to="{name:'mydecks',params:{email:user.email}}"><i class="fas fa-star mr-3"></i><strong>Decks</strong> </router-link>
+                  <router-link class="mb-1" :to="{name:'saveddecks'}"><i class="fas fa-boxes mr-3"></i><strong>Saved Decks</strong> </router-link>
                 </div>
             </div>
             <div class="mb-4 flex flex-col">
@@ -41,6 +42,7 @@
 
 <script>
 import Navbar from "@/components/Navbar";
+
 const axios=require('axios');
 
 export default {
@@ -53,20 +55,20 @@ export default {
     };
   },
   methods: {
-    async fetchUserProfile(){
-      const user=this.$store.state.user;
+    // async fetchUserProfile(){
+    //   const user=this.$store.state.user;
 
-      const result=await axios.get(`${process.env.VUE_APP_API_URL}user/profile/${user.email}`);
-      if(!result.error){
-        this.user=result.data;
-        // console.log(result.data);
-        // localStorage.setItem('flashcards-user',JSON.stringify(result.data));
-        this.$store.commit('setUser',result.data);
-      }
-    }
+    //   const result=await axios.get(`${process.env.VUE_APP_API_URL}user/profile/${user.email}`);
+    //   if(result.data.error){
+    //     return this.$toasted.show(result.data.errorLog);
+    //   }
+    //     this.user=result.data;
+    //     this.$store.commit('setUser',result.data);
+    // }
   },
   created() {
-    this.fetchUserProfile();
+    this.user=this.$store.state.user;
+    // this.fetchUserProfile();
   }
 };
 </script>
