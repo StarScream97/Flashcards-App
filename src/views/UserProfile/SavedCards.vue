@@ -128,21 +128,19 @@ export default {
             return this.$toasted.show(result.data.errorLog);
         }
         this.$toasted.show(result.data);
-        this.cards.splice(this.cards[index],1);
-        this.$store.commit('deleteFromSavedCards',index);
+        this.$delete(this.cards,index);
+        // this.$store.commit('deleteFromSavedCards',index);
         this.$forceUpdate();
-    }
-  },
-  computed: {
+    },
     async fetchSavedCards() {
-      // const results = await axios.get(
-      //   `${process.env.VUE_APP_API_URL}user/savedcards/${this.$route.params.email}`
-      // );
-      // if (results.data.error) {
-      //   return this.$toasted.show(results.data.errorLog);
-      // }
-      // this.cards = results.data.savedCards;
-      this.cards=this.$store.state.user.savedCards;
+      const results = await axios.get(
+        `${process.env.VUE_APP_API_URL}user/savedcards/${this.$route.params.email}`
+      );
+      if (results.data.error) {
+        return this.$toasted.show(results.data.errorLog);
+      }
+      this.cards = results.data.savedCards;
+      // this.cards=this.$store.state.user.savedCards;
     },
     async fetchDecks() {
       const results = await this.$store.dispatch(
@@ -154,8 +152,8 @@ export default {
     }
   },
   created() {
-    this.fetchSavedCards;
-    this.fetchDecks;
+    this.fetchSavedCards();
+    this.fetchDecks();
   }
 };
 </script>

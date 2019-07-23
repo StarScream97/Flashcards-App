@@ -64,7 +64,7 @@ export default {
         return this.$toasted.show(result.data.errorLog);
       }
       this.$toasted.show(result.data);
-      this.$store.commit('newlyCreatedDeck',this.decks[index]);
+      // this.$store.commit('newlyCreatedDeck',this.decks[index]);
     }
   },
   computed: {

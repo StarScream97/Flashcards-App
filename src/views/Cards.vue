@@ -121,7 +121,7 @@ export default {
         return this.$toasted.show(results.data.errorLog);
       }
       this.$toasted.show("Card successfully saved!");
-      this.$store.commit('newCardSaved',this.cards[index])
+      // this.$store.commit('newCardSaved',this.cards[index])
     },
     async fetchCategories() {
       // this.$store.dispatch('fetchCategories');

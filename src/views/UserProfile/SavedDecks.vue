@@ -82,18 +82,19 @@ export default {
             return this.$toasted.show(result.data.errorLog);
         }
         this.$toasted.show(result.data);
-        this.decks.splice(this.decks[index],1);
-        this.$store.commit('deleteFromSavedDecks',index);
+        this.$delete(this.decks,index);
+        // this.$store.commit('deleteFromSavedDecks',index);
         this.$forceUpdate();
     }
   },
   computed: {
     async fetchDecks() {
-      // const results = await axios.get(
-      //   `${process.env.VUE_APP_API_URL}user/fetchdeck/${this.email}`
-      // );
-      const decks = this.$store.state.user.savedDecks;
-      this.decks = decks;
+      const results = await axios.get(
+        `${process.env.VUE_APP_API_URL}user/fetchdeck/${this.email}`
+      );
+      this.decks=results.data.decks;
+    //   const decks = this.$store.state.user.savedDecks;
+    //   this.decks = decks;
       this.isLoading = false;
     }
   },

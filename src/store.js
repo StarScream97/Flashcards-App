@@ -42,21 +42,21 @@ export default new Vuex.Store({
     setUser(state,payload){
       state.user=payload;
     },
-    newCardAdded(state,card){
-      state.user.cards.push(card);
-    },
-    newlyCreatedDeck(state,deck){
-      state.user.savedDecks.push(deck);
-    },
-    deleteFromSavedDecks(state,index){
-      state.user.savedDecks.splice(index,1);
-    },
-    deleteFromSavedCards(state,index){
-      state.user.savedCards.splice(index,1);
-    },
-    newCardSaved(state,card){
-      state.user.savedCards.push(card);
-    }
+    // newCardAdded(state,card){
+    //   state.user.cards.push(card);
+    // },
+    // newlyCreatedDeck(state,deck){
+    //   state.user.savedDecks.push(deck);
+    // },
+    // deleteFromSavedDecks(state,index){
+    //   state.user.savedDecks.splice(index,1);
+    // },
+    // deleteFromSavedCards(state,index){
+    //   state.user.savedCards.splice(index,1);
+    // },
+    // newCardSaved(state,card){
+    //   state.user.savedCards.push(card);
+    // }
   },
   actions: {
     async register(context,user){
